@@ -14,44 +14,46 @@ export default class TodosController {
   }
 
   /**
-   * Display form to create a new record
-   */
-  async create({}: HttpContext) {
-    return {}
-  }
-
-  /**
    * Handle form submission for the create action
    */
   async store({ request }: HttpContext) {
-    return {}
+    const { note } = request.all()
+
+    return this.todos.add(note)
   }
 
   /**
    * Show individual record
    */
   async show({ params }: HttpContext) {
-    return {}
+    const { id } = params
+
+    return this.todos.get(id)
   }
 
-  /**
-   * Edit individual record
-   */
-  async edit({ params }: HttpContext) {
-    return {}
-  }
 
   /**
    * Handle form submission for the edit action
    */
   async update({ params, request }: HttpContext) {
-    return {}
+    const { id } = params
+    const { note } = request.all()
+
+    return this.todos.update(id, note)
   }
 
   /**
    * Delete record
    */
   async destroy({ params }: HttpContext) {
-    return {}
+    const { id } = params
+
+    return this.todos.remove(id)
   }
+
+  /** 
+   * Not used by REST API 
+   */
+  async create({ request }: HttpContext) {}
+  async edit({ params }: HttpContext) {}
 }

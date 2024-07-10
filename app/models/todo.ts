@@ -1,7 +1,17 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 
-export default class Todo extends BaseModel {
+export interface ITodoPayload {
+  note: string
+}
+
+export interface ITodo extends ITodoPayload {
+  id: number
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+export default class Todo extends BaseModel implements ITodo {
   static table = 'todos'
   
   @column({ isPrimary: true })
