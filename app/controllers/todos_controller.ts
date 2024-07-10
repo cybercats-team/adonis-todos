@@ -1,5 +1,6 @@
 import { inject } from '@adonisjs/core'
 import TodosService from '#services/todos_service'
+import { TodoValidator } from '#validators/todo_validator'
 import type { HttpContext } from '@adonisjs/core/http'
 
 @inject()  
@@ -17,7 +18,7 @@ export default class TodosController {
    * Handle form submission for the create action
    */
   async store({ request }: HttpContext) {
-    const { note } = request.all()
+    const { note } = await TodoValidator.validate(request.all())
 
     return this.todos.add(note)
   }
@@ -37,7 +38,7 @@ export default class TodosController {
    */
   async update({ params, request }: HttpContext) {
     const { id } = params
-    const { note } = request.all()
+    const { note } = await TodoValidator.validate(request.all())
 
     return this.todos.update(id, note)
   }
