@@ -1,11 +1,16 @@
+import { inject } from '@adonisjs/core'
+import TodosService from '#services/todos_service'
 import type { HttpContext } from '@adonisjs/core/http'
 
-export default class TodosController {
+@inject()  
+export default class TodosController {  
+  constructor(protected todos: TodosService) {}
+
   /**
    * Display a list of resource
    */
   async index({}: HttpContext) {
-    return []
+    return this.todos.all()
   }
 
   /**
